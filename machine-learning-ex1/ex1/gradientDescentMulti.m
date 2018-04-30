@@ -35,4 +35,6 @@ for iter = 1:num_iters
   end
     min(J_history)
 
+
+%================== IMPORTANT: There's something that doesn't work perfectly on this, I'll try to figure it out maybe later. ==============
 end
