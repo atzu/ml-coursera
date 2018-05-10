@@ -63,7 +63,9 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
-%Part 1:
+%Part 1: FeedForward Propagation
+
+
 %COST FUNCTION
 X = [ones(m, 1) X];
 a2 =  sigmoid(X*Theta1');
@@ -80,7 +82,7 @@ J = sum((1/m)*sum(-y_matrix.*1.*log(h) - (1-1.*y_matrix)*1.*log(1-1.*h))) + (lam
 
 % Regularization% (lambda/(2*m))*(sum((Theta1.^2)(:)) + sum((Theta2.^2)(:)));
 
-
+%Part 2: Backpropagation
 
 
 
