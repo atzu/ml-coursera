@@ -72,9 +72,13 @@ a3 = sigmoid(a2*Theta2');
 h = a3;
 y_matrix = eye(num_labels)(y,:);
 
-J = sum((1/m)*sum(-y_matrix.*1.*log(h) - (1-1.*y_matrix)*1.*log(1-1.*h)));
+Theta1(:,1) = 0; %Bias erase
+Theta2(:,1) = 0; %Bias erase
 
-% Regularization% + (lambda/(2*m))*new_theta'*new_theta;
+J = sum((1/m)*sum(-y_matrix.*1.*log(h) - (1-1.*y_matrix)*1.*log(1-1.*h))) + (lambda/(2*m))*(sum((Theta1.^2)(:)) + sum((Theta2.^2)(:)));
+
+
+% Regularization% (lambda/(2*m))*(sum((Theta1.^2)(:)) + sum((Theta2.^2)(:)));
 
 
 
