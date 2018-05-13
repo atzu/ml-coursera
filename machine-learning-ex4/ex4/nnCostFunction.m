@@ -63,14 +63,18 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+
 %Part 1: FeedForward Propagation
 
 
 %COST FUNCTION
 X = [ones(m, 1) X];
-a2 =  sigmoid(X*Theta1');
+a1 = X;
+z2= a1*Theta1';
+a2 = sigmoid(z2);
 a2 = [ones(size(a2,1), 1) a2]; %Bias
-a3 = sigmoid(a2*Theta2');
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
 h = a3;
 y_matrix = eye(num_labels)(y,:);
 
@@ -83,6 +87,23 @@ J = sum((1/m)*sum(-y_matrix.*1.*log(h) - (1-1.*y_matrix)*1.*log(1-1.*h))) + (lam
 % Regularization% (lambda/(2*m))*(sum((Theta1.^2)(:)) + sum((Theta2.^2)(:)));
 
 %Part 2: Backpropagation
+
+s3 = a3 - y_matrix;
+
+sigmoidGZ2 = sigmoidGradient([ones(size(z2,1), 1) z2]);
+s2 = s3*Theta2 .* sigmoidGZ2;
+s2 = s2(:, 2:end);
+D3 = s3' * a2;
+D2 = s2' * a1;
+
+
+
+Theta1_grad = (1/m) * D2;
+Theta2_grad = (1/m) * D3;
+
+
+
+
 
 
 
