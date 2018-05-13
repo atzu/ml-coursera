@@ -81,7 +81,7 @@ y_matrix = eye(num_labels)(y,:);
 Theta1(:,1) = 0; %Bias erase
 Theta2(:,1) = 0; %Bias erase
 
-J = sum((1/m)*sum(-y_matrix.*1.*log(h) - (1-1.*y_matrix)*1.*log(1-1.*h))) + (lambda/(2*m))*(sum((Theta1.^2)(:)) + sum((Theta2.^2)(:)));
+J = sum((1/m)*sum(-y_matrix.*1.*log(h) - (1-1.*y_matrix)*1.*log(1-1.*h))) + (lambda/(2*m))*(sum((Theta1(:, 2:end).^2)(:)) + sum((Theta2(:, 2:end).^2)(:)));
 
 
 % Regularization% (lambda/(2*m))*(sum((Theta1.^2)(:)) + sum((Theta2.^2)(:)));
@@ -101,9 +101,15 @@ D2 = s2' * a1;
 Theta1_grad = (1/m) * D2;
 Theta2_grad = (1/m) * D3;
 
+T1 = [zeros(size(Theta1,1), 1) Theta1(:, 2:end)];
+T2 = [zeros(size(Theta2,1), 1) Theta2(:, 2:end)];
 
 
+Theta1_reg = (lambda/m)*T1;
+Theta2_reg = (lambda/m)*T2;
 
+Theta1_grad = (Theta1_grad) + (Theta1_reg);
+Theta2_grad = (Theta2_grad) + (Theta2_reg);
 
 
 
