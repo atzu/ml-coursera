@@ -19,16 +19,18 @@ for iter = 1:num_iters
     %
     h=0;
     theta_old = theta;
-    for i = 1:size(X,2), % matrix column number
-      x = X(:,i);
-      h = h + theta_old(i)*x;
-      theta(i) = theta_old(i) - alpha/m * sum((h -y).*x);
-    endfor
+    %for i = 1:size(X,2), % matrix column number
+      %x = X(:,i);
+      %h = h + theta_old(i)*x;
+      %theta(i) = theta_old(i) - alpha/m * sum((h -y).*x);
+    %endfor
+
+
 
     % ============================================================
 
     % Save the cost J in every iteration
-
+    theta = theta_old .- (alpha/m).* X' *(X*theta_old - y) 
     J_history(iter) = computeCostMulti(X, y, theta);
 
 
